@@ -5,7 +5,7 @@ MySQL , Docker Desktop , Postman
 
 Open the terminal in project location and run the following command 
 
-    go mod init github.com/example            (here we have to paste a link of a empty repo of users account)
+    go mod init github.com/example
     go get gofr.dev
 
   run the command in terminal
