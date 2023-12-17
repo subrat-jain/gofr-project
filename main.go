@@ -103,7 +103,7 @@ func main() {
 			}
 			garage = append(garage, customer)
 		}
-		up, err := ctx.DB().ExecContext(ctx, "INSERT INTO complete (id, name, car_name, car_brand, car_no, in_time, out_time) VALUES (?,?,?,?,?,?,?)", id, garage[0].Name, garage[0].Car_Name, garage[0].Car_Brand, garage[0].Car_No, garage[0].In_Time, time)
+		up, err := ctx.DB().ExecContext(ctx, "INSERT INTO complete (id, name, car_name, car_brand, car_no, in_time, out_time) VALUES (?,?,?,?,?,?,?)", id, garage[0].Name, garage[0].Car_Name, garage[0].Car_Brand, garage[0].Car_No, garage[0].In_Time, time.Format("2006-01-02"))
 		if err != nil {
 			return nil, err
 		}
