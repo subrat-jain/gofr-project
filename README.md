@@ -1,7 +1,7 @@
-gofr-project
-Mini GoLang framework for writing http api using gofr 
-API server and Cmd creation
-open the terminal in the project location and run the following command first
+# gofr-project <br />
+Mini GoLang framework for writing http api using gofr <br />
+API server and Cmd creation <br />
+open the terminal in the project location and run the following command first <br />
 •	go mod init github.com/example
 •	go get gofr.dev
 code and create a main file main.go
