@@ -1,10 +1,10 @@
 # gofr-project
 ** Mini GoLang framework for writing http api using gofr **
-  API server and Cmd creation
-  open the terminal in the project location and run the following command first**
+  ** API server and Cmd creation **
+  ** open the terminal in the project location and run the following command first **
       - go mod init github.com/example
       - go get gofr.dev
-  **code and create a main file main.go
+  ** code and create a main file main.go
   run the command in terminal**
       - go mod tidy
   **connecting mysql run the command**
@@ -12,7 +12,7 @@
       - docker exec -it gofr-mysql mysql -uroot -proot123 test_db -e "CREATE TABLE garage (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, car_name VARCHAR(255) NOT NULL, car_brand VARCHAR(255) NOT NULL, car_no VARCHAR(255) NOT NULL, in_time DATETIME);"
       - docker exec -it gofr-mysql mysql -uroot -proot123 test_db -e "CREATE TABLE complete (id INT AUTO_INCREMENT PRIMARY KEY, name VARCHAR(255) NOT NULL, car_name VARCHAR(255) NOT NULL, car_brand VARCHAR(255) NOT NULL, car_no VARCHAR(255) NOT NULL, in_time DATETIME, out_time DATETIME);"
 
-##Postman collection for trying out the APIs##
+## Postman collection for trying out the APIs ##
   for inserting into garage
       - POST localhost:9000/customer/name/car_name/car_brand/car_no.
   To See the list of cars currently in Garage
