@@ -53,7 +53,7 @@ func main() {
 
 		for rows.Next() {
 			var customer Car
-			if err := rows.Scan(&customer.ID, &customer.Name, &customer.Car_Name, &customer.Car_Brand, &customer.Car_No, customer.In_Time); err != nil {
+			if err := rows.Scan(&customer.ID, &customer.Name, &customer.Car_Name, &customer.Car_Brand, &customer.Car_No, &customer.In_Time); err != nil {
 				return nil, err
 			}
 
@@ -65,7 +65,7 @@ func main() {
 	})
 
 	app.GET("/old", func(ctx *gofr.Context) (interface{}, error) {
-		var garage []Old_Car
+		var complete []Old_Car
 
 		// Getting the customer from the database using SQL
 		rows, err := ctx.DB().QueryContext(ctx, "SELECT * FROM complete")
@@ -74,23 +74,23 @@ func main() {
 		}
 
 		for rows.Next() {
-			var customer Old_Car
-			if err := rows.Scan(&customer.ID, &customer.Name, &customer.Car_Name, &customer.Car_Brand, &customer.Car_No, customer.In_Time, customer.Out_Time); err != nil {
+			var old Old_Car
+			if err := rows.Scan(&old.ID, &old.Name, &old.Car_Name, &old.Car_Brand, &old.Car_No, &old.In_Time, &old.Out_Time); err != nil {
 				return nil, err
 			}
 
-			garage = append(garage, customer)
+			complete = append(complete, old)
 		}
 
 		// return the customer
-		return garage, nil
+		return complete, nil
 	})
 
 	app.DELETE("/customer/{id}", func(ctx *gofr.Context) (interface{}, error) {
 		id := ctx.PathParam("id")
 		time := time.Now()
 
-		rows, err := ctx.DB().QueryContext(ctx, "SELECT * FROM car WHERE id=?", id)
+		rows, err := ctx.DB().QueryContext(ctx, "SELECT * FROM garage WHERE id=?", id)
 		if err != nil {
 			return nil, err
 		}
@@ -98,12 +98,12 @@ func main() {
 
 		for rows.Next() {
 			var customer Car
-			if err := rows.Scan(&customer.ID, &customer.Name, &customer.Car_Name, &customer.Car_Brand, &customer.Car_No, customer.In_Time); err != nil {
+			if err := rows.Scan(&customer.ID, &customer.Name, &customer.Car_Name, &customer.Car_Brand, &customer.Car_No, &customer.In_Time); err != nil {
 				return nil, err
 			}
 			garage = append(garage, customer)
 		}
-		up, err := ctx.DB().ExecContext(ctx, "INSERT INTO complete (id, name, car_name, car_brand, car_no, in_time, out_time) VALUES (?,?,?,?,?,?,?)", id, garage[0].Name, garage[0].Car_Name, garage[0].Car_Brand, garage[0].Car_No, garage[0].In_Time, time.Format("2006-01-02"))
+		up, err := ctx.DB().ExecContext(ctx, "INSERT INTO complete (id, name, car_name, car_brand, car_no, in_time, out_time) VALUES (?,?,?,?,?,?,?)", id, garage[0].Name, garage[0].Car_Name, garage[0].Car_Brand, garage[0].Car_No, garage[0].In_Time, time)
 		if err != nil {
 			return nil, err
 		}
@@ -120,7 +120,7 @@ func main() {
 		car_name := ctx.PathParam("car_name")
 		car_brand := ctx.PathParam("car_brand")
 		car_no := ctx.PathParam("car_no")
-		_, err := ctx.DB().ExecContext(ctx, "UPDATE garage SET name=?, car_name=?, car_brand=?, car_no=? WHERE id=?", name, car_name, car_brand, car_no, id)
+		_, err := ctx.DB().ExecContext(ctx, "UPDATE garage SET name=?,car_name=?,car_brand=?,car_no=? WHERE id=?", name, car_name, car_brand, car_no, id)
 
 		return nil, err
 	})
@@ -128,3 +128,4 @@ func main() {
 	// it can be over-ridden through configs
 	app.Start()
 }
+
